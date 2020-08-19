@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drill Script", "Drill Script\Drill Script.csproj", "{E2251FB8-00EB-436C-9013-4DEB22A1042D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auto Base", "Auto Base\Auto Base.csproj", "{92A61AFC-45B1-4912-9CF0-2376B1347FDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -12,6 +14,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E2251FB8-00EB-436C-9013-4DEB22A1042D}.Debug|x64.ActiveCfg = Debug|x64
 		{E2251FB8-00EB-436C-9013-4DEB22A1042D}.Debug|x64.Build.0 = Debug|x64
+		{92A61AFC-45B1-4912-9CF0-2376B1347FDB}.Debug|x64.ActiveCfg = Debug|x64
+		{92A61AFC-45B1-4912-9CF0-2376B1347FDB}.Debug|x64.Build.0 = Debug|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

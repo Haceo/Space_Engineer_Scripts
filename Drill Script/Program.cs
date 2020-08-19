@@ -26,7 +26,10 @@ namespace IngameScript
         Color fontColor;
         IMyTextSurface _drawingSurfaceCapacity;
         RectangleF _viewportCapacity;
-        string[] drillBlocks;
+        string[] customData;
+        IMyCockpit cockpit;
+        int screen = 0;
+        List<IMyTerminalBlock> calcBlocks = new List<IMyTerminalBlock>();
         public Program()
         {
             if (Me.CustomData.Length < 4)
@@ -34,8 +37,14 @@ namespace IngameScript
                 Echo("Error, Input custom data!");
                 return;
             }
-            drillBlocks = Me.CustomData.Split('\n');
-            _drawingSurfaceCapacity = (GridTerminalSystem.GetBlockWithName(drillBlocks[0]) as IMyCockpit).GetSurface(0);
+
+            customData = Me.CustomData.Split('\n');
+            cockpit = GridTerminalSystem.GetBlockWithName(customData[0]) as IMyCockpit;
+            screen = int.Parse(customData[1]);
+            for (var i = 0; i < customData.Length; i++)
+                if (i > 1)
+                    calcBlocks.Add(GridTerminalSystem.GetBlockWithName(customData[i]));
+            _drawingSurfaceCapacity = cockpit.GetSurface(screen);
             _drawingSurfaceCapacity.ContentType = ContentType.SCRIPT;
             Runtime.UpdateFrequency = UpdateFrequency.Update10;
             _viewportCapacity = new RectangleF(
@@ -45,24 +54,20 @@ namespace IngameScript
 
         public void Main(string argument, UpdateType updateSource)
         {
-            List<IMyTerminalBlock> blocks = new List<IMyTerminalBlock>();
-            foreach (var name in drillBlocks)
-                blocks.Add(GridTerminalSystem.GetBlockWithName(name));
-            blocks.RemoveAt(0);
-            if (blocks.Count < 1)
+            if (calcBlocks.Count < 1)
             {
                 Echo("Error, No blocks found!");
                 return;
             }
             float vol = 0f;
             float maxVol = 0f;
-            foreach (var block in blocks)
+            foreach (var block in calcBlocks)
             {
                 vol += block.GetInventory().CurrentVolume.RawValue;
                 maxVol += block.GetInventory().MaxVolume.RawValue;
             }
             percent = Math.Round((vol / maxVol) * 100, 2);
-            Echo($"{blocks.Count} Cargo Blocks");
+            Echo($"{calcBlocks.Count} Cargo Blocks");
             var frame = _drawingSurfaceCapacity.DrawFrame();
             if (percent < 50)
                 fontColor = Color.Green;

@@ -71,7 +71,7 @@ namespace IngameScript
             var frame = _drawingSurfaceCapacity.DrawFrame();
             if (percent < 50)
                 fontColor = Color.Green;
-            else if (percent > 50)
+            else if (percent > 50 && percent < 75)
                 fontColor = Color.Yellow;
             else if (percent > 75)
                 fontColor = Color.Red;
@@ -81,13 +81,13 @@ namespace IngameScript
 
         public void DrawSprites(ref MySpriteDrawFrame frame)
         {
-            var pos = new Vector2(256, 124) + _viewportCapacity.Position;
+            var pos = _viewportCapacity.Center;
             var sprite = new MySprite()
             {
                 Type = SpriteType.TEXT,
                 Data = $"{percent}%",
                 Position = pos,
-                RotationOrScale = 3f,
+                RotationOrScale = 1f,
                 Color = fontColor,
                 Alignment = TextAlignment.CENTER,
                 FontId = "White"
